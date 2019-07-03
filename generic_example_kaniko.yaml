@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kaniko-context
+data:
+  Dockerfile: |
+    FROM ubuntu
+    RUN echo hello
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: ["--dockerfile=/context/Dockerfile",
+            "--context=/context",
+ #           "--no-push",
+            "--destination=eu.gcr.io/emea-sa-demo/test-kaniko:latest"]
+    volumeMounts:
+      - name: kaniko-secret
+        mountPath: /secret
+      - name: context
+        mountPath: /context
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /secret/kaniko-secret.json
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret
+    - name: context
+      configMap:
+        name: kaniko-context
+
