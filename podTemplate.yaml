@@ -25,11 +25,6 @@ spec:
         value: /secret/kaniko-secret.json
   restartPolicy: Never
   volumes:
-  - name: kaniko-secret
-    projected:
-      sources:
-      - secret:
-          name: kaniko-secret
-          items:
-            - key: .dockerconfigjson
-              path: config.json
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret
