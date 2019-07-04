@@ -11,7 +11,7 @@ pipeline {
       steps {
         container('maven') {
           sh 'mvn clean install'
-          writeFile file: "application.sh", text: "echo Built ${BUILD_ID} of ${JOB_NAME}
+          writeFile file: "application.sh", text: "echo Built ${BUILD_ID} of ${JOB_NAME}"
           archiveArtifacts 'application.sh'
           gateProducesArtifact file: 'application.sh', label: 'Dummy artifact to be consumed by Deploy (master branch) gate'
         }
