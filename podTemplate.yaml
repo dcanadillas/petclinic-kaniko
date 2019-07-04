@@ -7,14 +7,14 @@ spec:
   - name: maven
     image: maven:3.5.0
     command:
-    - cat
+    - /busybox/cat
     tty: true
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=./Dockerfile",
-            --context=`pwd`,
- #           "--no-push",
-            "--destination=eu.gcr.io/emea-sa-demo/petclinic-kaniko:latest"]
+    image: gcr.io/kaniko-project/executor:debug
+#     args: ["--dockerfile=./Dockerfile",
+#             --context=`pwd`,
+#  #           "--no-push",
+#             "--destination=eu.gcr.io/emea-sa-demo/petclinic-kaniko:latest"]
     volumeMounts:
       - name: kaniko-secret
         mountPath: /secret
