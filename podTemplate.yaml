@@ -25,7 +25,7 @@ spec:
         value: /secret/kaniko-secret.json
   restartPolicy: Never
   volumes:
-  - name: docker-gcr
+  - name: kaniko-secret
     projected:
       sources:
       - secret:
