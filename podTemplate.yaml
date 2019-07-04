@@ -11,15 +11,15 @@ spec:
     tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=/context/Dockerfile",
-            "--context=/context",
+    args: ["--dockerfile=./Dockerfile",
+            --context=`pwd`,
  #           "--no-push",
-            "--destination=eu.gcr.io/emea-sa-demo/test-kaniko:latest"]
+            "--destination=eu.gcr.io/emea-sa-demo/petclinic-kaniko:latest"]
     volumeMounts:
       - name: kaniko-secret
         mountPath: /secret
-      - name: context
-        mountPath: /context
+      # - name: context
+      #   mountPath: /context
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /secret/kaniko-secret.json
