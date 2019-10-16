@@ -10,6 +10,7 @@ pipeline {
     stage('Maven Install') {
       steps {
         container('maven') {
+          error 'Another fake error'
           sh 'mvn clean install'
           //writeFile file: "application.sh", text: "echo my Built ${BUILD_ID} of ${JOB_NAME}"
           //archiveArtifacts 'application.sh'
